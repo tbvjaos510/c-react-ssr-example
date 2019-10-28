@@ -1,6 +1,8 @@
 {
   "files.associations": {
     "duktape.h": "c",
-    "civetweb.h": "c"
+    "civetweb.h": "c",
+    "types.h": "c",
+    "stat.h": "c"
   }
 }

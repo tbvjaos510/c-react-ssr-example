@@ -2,10 +2,10 @@
   "name": "c-react-ssr-example",
   "version": "1.0.0",
   "scripts": {
-    "build": "npm run build:client & npm run build:server",
+    "build": "npm run build:client && npm run build:server",
     "build:client": "parcel build --no-source-maps ./web/index.html",
     "build:server": "parcel build --no-source-maps --no-minify ./web/server.jsx",
-    "cmake:c": "cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=/Users/peter/tbvjaos510/vcpkg/scripts/buildsystems/vcpkg.cmake",
+    "cmake": "cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=/Users/peter/tbvjaos510/vcpkg/scripts/buildsystems/vcpkg.cmake",
     "cmake:build": "cmake --build build/",
     "start": "./build/c-react-ssr-example"
   },

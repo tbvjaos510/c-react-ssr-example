@@ -3,3 +3,4 @@ node_modules/
 dist/
 CMakeCache.txt
 CMakeFiles/
+build/
