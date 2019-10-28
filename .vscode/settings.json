@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "duktape.h": "c",
+    "civetweb.h": "c"
+  }
+}

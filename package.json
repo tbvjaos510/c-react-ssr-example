@@ -1,0 +1,24 @@
+{
+  "name": "c-react-ssr-example",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run build:client & npm run build:server",
+    "build:client": "parcel build --no-source-maps ./web/index.html",
+    "build:server": "parcel build --no-source-maps --no-minify ./web/server.jsx",
+    "cmake:c": "cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=/Users/peter/tbvjaos510/vcpkg/scripts/buildsystems/vcpkg.cmake",
+    "cmake:build": "cmake --build build/",
+    "start": "./build/c-react-ssr-example"
+  },
+  "repository": "https://github.com/tbvjaos510/c-react-ssr-example",
+  "author": "tbvjaos510 <peter@class101.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-imported-component": "^6.2.0",
+    "react-router": "^5.1.2"
+  }
+}
