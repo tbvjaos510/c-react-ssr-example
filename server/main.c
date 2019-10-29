@@ -6,19 +6,18 @@
 #include "ssr.h"
 #define PORT "3030"
 
-int exitNow = 0;
+char *html = 0;
 
 static int mainHandler(struct mg_connection *conn, void *ctx)
 {
+  const struct mg_request_info *info = mg_get_request_info(conn);
   duk_get_global_string(ctx, "make");
-  duk_push_string(ctx, "/");
+  duk_push_string(ctx, info->request_uri);
   duk_call(ctx, 1);
-  char *html = read_file("dist/index.html");
   mg_printf(conn, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n");
   const char *build = duk_get_string(ctx, -1);
   char *page = replaceValue(html, "<div id=\"root\"></div>", build);
   mg_printf(conn, page);
-  free(html);
   free(page);
   return 1;
 }
@@ -36,6 +35,8 @@ int main(int argc, char **argv)
   duk_context *ctx;
   struct mg_callbacks callbacks;
   struct mg_context *mg;
+
+  html = read_file("dist/index.html");
 
   ctx = duk_create_heap(NULL, NULL, NULL, NULL, my_fatal);
   if (!ctx)
@@ -58,6 +59,7 @@ int main(int argc, char **argv)
   }
 
   mg_stop(mg);
+  free(html);
 
   return 0;
 }
