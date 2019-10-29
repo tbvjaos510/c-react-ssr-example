@@ -6,10 +6,9 @@
 #include "ssr.h"
 #define PORT "3030"
 
-duk_context *ctx;
 int exitNow = 0;
 
-static int mainHandler(struct mg_connection *conn, void *cbdata)
+static int mainHandler(struct mg_connection *conn, void *ctx)
 {
   duk_get_global_string(ctx, "make");
   duk_push_string(ctx, "/");
@@ -34,6 +33,7 @@ int main(int argc, char **argv)
       "request_timeout_ms",
       "10000",
       0};
+  duk_context *ctx;
   struct mg_callbacks callbacks;
   struct mg_context *mg;
 
@@ -43,16 +43,16 @@ int main(int argc, char **argv)
     exit(1);
   }
 
-  fileio_push_file_string(ctx, "dist/server.js");
+  duk_push_file(ctx, "dist/server.js");
   duk_eval(ctx);
   printf("load success\n");
   memset(&callbacks, 0, sizeof(callbacks));
   mg = mg_start(&callbacks, 0, options);
-  mg_set_request_handler(mg, "/$", mainHandler, 0);
-  mg_set_request_handler(mg, "/test", mainHandler, 0);
+  mg_set_request_handler(mg, "/$", mainHandler, ctx);
+  mg_set_request_handler(mg, "/test", mainHandler, ctx);
   printf("Server Start in port %s\n", PORT);
 
-  while (!exitNow)
+  while (1)
   {
     sleep(1);
   }

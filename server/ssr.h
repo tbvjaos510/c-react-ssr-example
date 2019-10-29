@@ -78,7 +78,7 @@ error:
   fprintf(stderr, "file open error\n");
   duk_push_undefined(ctx);
 }
-void fileio_push_file_string(duk_context *ctx, const char *filename)
+void duk_push_file(duk_context *ctx, const char *filename)
 {
   fileio_push_file_buffer(ctx, filename);
   if (duk_is_buffer_data(ctx, -1))
