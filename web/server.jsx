@@ -5,6 +5,6 @@ import App from './app';
 
 print("!component ready");
 
-global.make = () => {
-  print(`<div id=\"root\">${ReactDOMServer.renderToString(<App />)}</div>`);
-}
+global.make = url => {
+  return `<div id=\"root\">${ReactDOMServer.renderToString(<App />)}</div>`;
+};

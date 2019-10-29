@@ -11,14 +11,11 @@ int exitNow = 0;
 
 static int mainHandler(struct mg_connection *conn, void *cbdata)
 {
-  duk_push_string(ctx, "/");
-  duk_put_global_string(ctx, "location");
-  duk_eval_string_noresult(ctx, "var context={}");
   duk_get_global_string(ctx, "make");
-  duk_call(ctx, 0);
+  duk_push_string(ctx, "/");
+  duk_call(ctx, 1);
   char *html = read_file("dist/index.html");
   mg_printf(conn, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n");
-  duk_get_global_string(ctx, "result");
   const char *build = duk_get_string(ctx, -1);
   char *page = replaceValue(html, "<div id=\"root\"></div>", build);
   mg_printf(conn, page);
@@ -46,9 +43,6 @@ int main(int argc, char **argv)
     exit(1);
   }
 
-  duk_push_c_function(ctx, native_print, 1);
-  duk_put_global_string(ctx, "print");
-  duk_push_thread(ctx);
   fileio_push_file_string(ctx, "dist/server.js");
   duk_eval(ctx);
   printf("load success\n");
