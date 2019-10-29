@@ -36,8 +36,6 @@ int main(int argc, char **argv)
       PORT,
       "request_timeout_ms",
       "10000",
-      "enable_auth_domain_check",
-      "no",
       0};
   struct mg_callbacks callbacks;
   struct mg_context *mg;

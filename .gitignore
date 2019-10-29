@@ -4,3 +4,5 @@ dist/
 CMakeCache.txt
 CMakeFiles/
 build/
+yarn.lock
+package-lock.json
