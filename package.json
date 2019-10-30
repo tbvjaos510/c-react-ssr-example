@@ -14,7 +14,7 @@
     "start": "npm run cmake:build && ./build/c-react-ssr-example"
   },
   "repository": "https://github.com/tbvjaos510/c-react-ssr-example",
-  "author": "tbvjaos510 <peter@class101.net>",
+  "author": "tbvjaos510 <tbvjaos510@naver.com>",
   "license": "MIT",
   "devDependencies": {
     "parcel-bundler": "^1.12.4"

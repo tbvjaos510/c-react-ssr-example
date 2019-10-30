@@ -1,6 +1,7 @@
 # C-React-SSR-Example
 
 C언어와 React를 이용한 Server Side Rendering 예제입니다.
+velog: <https://velog.io/@tbvjaos510/C언어와-React로-SSR을-만들어-보자>
 
 ## Stack
 
