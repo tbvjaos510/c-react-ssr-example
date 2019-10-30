@@ -11,7 +11,7 @@
     "cmake": "cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=$VCPKG_TOOLCHAIN",
     "cmake:window": "cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN%",
     "cmake:build": "cmake --build build/",
-    "start": "./build/c-react-ssr-example"
+    "start": "npm run cmake:build && ./build/c-react-ssr-example"
   },
   "repository": "https://github.com/tbvjaos510/c-react-ssr-example",
   "author": "tbvjaos510 <peter@class101.net>",

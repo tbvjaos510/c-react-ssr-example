@@ -87,7 +87,7 @@ void duk_push_file(duk_context *ctx, const char *filename)
   }
 }
 
-char *replaceValue(char *strInput, const char *strTarget, const char *strChange)
+char *replaceString(char *strInput, const char *strTarget, const char *strChange)
 {
   char *strResult;
   char *strTemp;

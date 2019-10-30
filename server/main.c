@@ -16,7 +16,7 @@ static int mainHandler(struct mg_connection *conn, void *ctx)
   duk_call(ctx, 1);
   mg_printf(conn, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n");
   const char *build = duk_get_string(ctx, -1);
-  char *page = replaceValue(html, "<div id=\"root\"></div>", build);
+  char *page = replaceString(html, "<div id=\"root\"></div>", build);
   mg_printf(conn, page);
   free(page);
   return 1;
