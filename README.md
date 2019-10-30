@@ -13,7 +13,7 @@ C언어와 React를 이용한 Server Side Rendering 예제입니다.
 
 ## Install
 
-윈도우, Linux, Mac에서 셋 다 동작은 하지만 Mac환경에서 실행하기를 권장합니다.
+윈도우, Linux, Mac에서 동작은 하지만 Mac환경에서 실행하기를 권장합니다.
 
 ### VCPKG 설치
 
@@ -53,6 +53,7 @@ C언어와 React를 이용한 Server Side Rendering 예제입니다.
 
 ```bash
 git clone https://github.com/tbvjaos510/c-react-ssr-example
+cd c-react-ssr-example
 npm run bootstrap # for linux/mac
 npm run bootstrap:window # for window
 ```
