@@ -1,6 +1,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <unistd.h>
 #include "duktape.h"
 #include "civetweb.h"
 #include "ssr.h"
@@ -19,6 +20,10 @@ static int mainHandler(struct mg_connection *conn, void *ctx)
   char *page = replaceString(html, "<div id=\"root\"></div>", build);
   mg_printf(conn, page);
   free(page);
+  return 1;
+}
+
+static int authHandler() {
   return 1;
 }
 
@@ -49,6 +54,7 @@ int main(int argc, char **argv)
   printf("load success\n");
   memset(&callbacks, 0, sizeof(callbacks));
   mg = mg_start(&callbacks, 0, options);
+  mg_set_auth_handler(mg, "/", authHandler, 0);
   mg_set_request_handler(mg, "/$", mainHandler, ctx);
   mg_set_request_handler(mg, "/test", mainHandler, ctx);
   printf("Server Start in port %s\n", PORT);

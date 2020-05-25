@@ -1,0 +1,55 @@
+FROM ubuntu:18.04 as ubuntu
+LABEL version='1.0.0'
+
+RUN apt-get update
+RUN apt-get upgrade -y
+
+RUN apt-get install git curl unzip tar wget build-essential python-yaml python -y
+
+WORKDIR /opt
+
+RUN git clone https://github.com/Microsoft/vcpkg.git
+
+WORKDIR /opt/vcpkg
+
+RUN ./bootstrap-vcpkg.sh
+
+RUN ./vcpkg integrate install
+
+RUN gcc --help
+
+RUN ./vcpkg install civetweb duktape;
+
+RUN mkdir project
+
+WORKDIR /project
+
+FROM node:12 as node
+
+WORKDIR /project
+
+COPY web web
+COPY package.json package.json
+
+RUN yarn
+
+RUN yarn build:client
+RUN yarn build:server
+
+FROM rikorose/gcc-cmake as cmake
+
+WORKDIR /project
+
+COPY --from=ubuntu /opt/vcpkg /opt/vcpkg
+COPY --from=node /project/dist /project/dist
+
+COPY CMakeLists.txt CMakeLists.txt
+COPY server server
+
+RUN cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake
+
+RUN cmake --build build
+
+RUN echo "Allow From All" > /.htpasswd
+
+CMD ["/project/build/c-react-ssr-example"]

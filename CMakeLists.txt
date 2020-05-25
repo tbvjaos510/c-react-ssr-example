@@ -8,7 +8,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${DUKTAPE_INCLUDE_DIRS})
 find_package(civetweb CONFIG REQUIRED)
 
 add_executable(c-react-ssr-example server/main.c)
-target_link_libraries(c-react-ssr-example ${DUKTAPE_LIBRARY} civetweb::civetweb )
+target_link_libraries(c-react-ssr-example ${DUKTAPE_LIBRARY} civetweb::civetweb m)
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
