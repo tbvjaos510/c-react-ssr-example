@@ -16,7 +16,7 @@ velog: <https://velog.io/@tbvjaos510/C언어와-React로-SSR을-만들어-보자
 ## Setup
 
 DockerFile로 구성되어 있습니다.
-수동으로 실행하는 방법은 [여기](#SETUP_MANUALLY.md)를 참고해 주세요
+수동으로 실행하는 방법은 [여기](https://github.com/tbvjaos510/c-react-ssr-example/blob/master/SETUP_MANUALLY.md)를 참고해 주세요
 
 ### 설치
 
