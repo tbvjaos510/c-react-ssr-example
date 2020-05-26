@@ -1,6 +1,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include "duktape.h"
 #include "civetweb.h"
@@ -12,11 +13,15 @@ char *html = 0;
 static int mainHandler(struct mg_connection *conn, void *ctx)
 {
   const struct mg_request_info *info = mg_get_request_info(conn);
+  if (strstr(info->request_uri, ".")) {
+    return 0;
+  }
   duk_get_global_string(ctx, "make");
   duk_push_string(ctx, info->request_uri);
   duk_call(ctx, 1);
-  mg_printf(conn, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n");
+  mg_printf(conn, "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n");
   const char *build = duk_get_string(ctx, -1);
+  printf("%s", build);
   char *page = replaceString(html, "<div id=\"root\"></div>", build);
   mg_printf(conn, page);
   free(page);
@@ -55,8 +60,8 @@ int main(int argc, char **argv)
   memset(&callbacks, 0, sizeof(callbacks));
   mg = mg_start(&callbacks, 0, options);
   mg_set_auth_handler(mg, "/", authHandler, 0);
-  mg_set_request_handler(mg, "/$", mainHandler, ctx);
-  mg_set_request_handler(mg, "/test", mainHandler, ctx);
+  mg_set_request_handler(mg, "/", mainHandler, ctx);
+  // mg_set_request_handler(mg, "/test", mainHandler, ctx);
   printf("Server Start in port %s\n", PORT);
 
   while (1)

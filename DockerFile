@@ -24,24 +24,24 @@ RUN mkdir project
 
 WORKDIR /project
 
-FROM node:12 as node
+# FROM node:12 as node
 
-WORKDIR /project
+# WORKDIR /project
 
-COPY web web
-COPY package.json package.json
+# COPY package.json package.json
 
-RUN yarn
+# RUN yarn
 
-RUN yarn build:client
-RUN yarn build:server
+# COPY .babelrc.*.json ./
+# RUN yarn build:client
+# RUN yarn build:server
 
 FROM rikorose/gcc-cmake as cmake
 
 WORKDIR /project
 
 COPY --from=ubuntu /opt/vcpkg /opt/vcpkg
-COPY --from=node /project/dist /project/dist
+# COPY --from=node /project/dist /project/dist
 
 COPY CMakeLists.txt CMakeLists.txt
 COPY server server
@@ -52,4 +52,5 @@ RUN cmake --build build
 
 RUN echo "Allow From All" > /.htpasswd
 
+COPY dist dist
 CMD ["/project/build/c-react-ssr-example"]

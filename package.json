@@ -6,26 +6,28 @@
     "bootstrap:window": "npm install && npm run install:vcpkg && npm run build && npm run cmake:window && npm run cmake:build",
     "install:vcpkg": "vcpkg install duktape civetweb",
     "build": "npm run build:client && npm run build:server",
-    "build:client": "parcel build --no-source-maps ./web/index.html",
-    "build:server": "parcel build --no-source-maps --no-minify ./web/server.jsx",
+    "build:client": "copy .babelrc.csr.json .babelrc && parcel build ./web/index.html",
+    "build:server": "copy .babelrc.ssr.json .babelrc && parcel build --no-source-maps --no-minify ./web/server.jsx",
     "cmake": "cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=$VCPKG_TOOLCHAIN",
     "cmake:window": "cmake CmakeLists.txt -Bbuild -DCMAKE_TOOLCHAIN_FILE=%VCPKG_TOOLCHAIN%",
     "cmake:build": "cmake --build build/",
-    "start": "npm run cmake:build && ./build/c-react-ssr-example"
+    "start": "npm run cmake:build && ./build/c-react-ssr-example",
+    "generate-imported-component": "imported-components web web/imported.js"
   },
   "repository": "https://github.com/tbvjaos510/c-react-ssr-example",
   "author": "tbvjaos510 <tbvjaos510@naver.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@types/react": "^16.9.0",
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.9.6",
-    "react": "^16.13.1",
+    "react": "^16.9.0",
     "react-dom": "^16.13.1",
     "react-imported-component": "^6.2.1",
-    "react-router": "^5.2.0"
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
   }
 }
